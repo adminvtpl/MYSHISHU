@@ -92,6 +92,7 @@ router.route("/fetchDateTime").post(async(req, res) => {
         blogid : req.body.blogid,
     });
 
+
     jj.save().then((result) => {
         res.json({ date: jj.date , time : jj.time , success : true });
     }).catch((err) => {
@@ -105,6 +106,7 @@ router.route("/fetchDateTime").post(async(req, res) => {
 
 router.route("/getOwnBlog/:phone").get((req, res) => {
     BlogPost.find({ phone: req.params.phone })
+        .sort({ _id : -1 })
         .exec()
         .then(result => {
             return res.json({ data: result });
@@ -116,8 +118,19 @@ router.route("/getOwnBlog/:phone").get((req, res) => {
 
 
 
+// router.route("/getAllBlogs/:phone").get((req, res) => {
+//     BlogPost.find({phone : {$ne : req.params.phone}})
+//         .exec()
+//         .then(result => {
+//             return res.json({ data: result });
+//         })
+//         .catch(err => {
+//             return res.json({ err });
+//         });
+// });
 router.route("/getAllBlogs/:phone").get((req, res) => {
-    BlogPost.find({phone : {$ne : req.params.phone}})
+    BlogPost.find({})
+        .sort({ _id : -1 }) // Replace 'createdAt' with the actual field you want to use for sorting
         .exec()
         .then(result => {
             return res.json({ data: result });
@@ -126,6 +139,7 @@ router.route("/getAllBlogs/:phone").get((req, res) => {
             return res.json({ err });
         });
 });
+
 
 
 router.route("/delete/:id/:phone").delete((req, res) => {

@@ -60,7 +60,7 @@ async function sendOTP(params , callback){
     const data = `${params.email}.${otp}.${expires}`;
     const hash = crypto.createHmac("sha256",key).update(data).digest("hex");
     const fullHash = `${hash}.${expires}`;
-    var otpMessage = `Dear Customer, ${otp} is the one time password for your login to MyShishu.\nRegaurds,\nTeam MyShishu`;
+    var otpMessage = `Dear Parent,\n${otp} is the one time password for your login to MyShishu.\nRegaurds,\nTeam MyShishu`;
     var model ={
         email : params.email,
         subject : "Registeration OTP",
