@@ -27,7 +27,7 @@ router.route("/getToDo").post(async (req, res) => {
     });
 
    
-res.json({ success : true , data : TODO });
+res.json({  success : TODO });
 
 });
 

@@ -6,4 +6,6 @@ router.post("/otp-verify",otpController.verifyOTP);
 router.post("/sendemail",otpController.sendEmail);
 router.post("/sendotponmobile",otpController.otpLoginonMobile);
 router.post("/verifyotponmobile",otpController.verifyOTPonmobile);
+router.post("/purchasedCourses",otpController.courses);
+router.post("/feedback",otpController.userFeedback);
 module.exports= router;

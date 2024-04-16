@@ -166,6 +166,48 @@ async function sendEmail(params , callback){
     )
 }
 
+async function coursePurchased(params , callback){
+    
+   
+    var otpMessage = `Course has sucessfully been purchased.\n\nCourse Title: ${params.courseTitle}\nPhone: ${params.phone}\nPrice: ${params.price}\nrazorpay_payment_id: ${params.razorpay_payment_id}\n\nMyShishu app`;
+    var model ={
+        email : params.email,
+        subject : "Course Purchased",
+        body : otpMessage
+    };
+    emailService.sendEmail(
+        model,(error , result)=>{
+            if(error){
+                return callback(error);
+            }
+            return callback(null , otpMessage);
+
+        }
+    )
+}
+
+async function Feedback(params , callback){
+    
+   
+    var otpMessage = `Following feedback has been given by user\nPhone Number:${params.phone}\nfeedback: ${params.feedback}`;
+    var model ={
+        email : params.email,
+        subject : "Users Feedback",
+        body : otpMessage
+    };
+    emailService.sendEmail(
+        model,(error , result)=>{
+            if(error){
+                return callback(error);
+            }
+            return callback(null , otpMessage);
+
+        }
+    )
+}
+
+
+
 module.exports = {
-    sendOTP , verifyOTP , sendEmail , sendOTPonmobile , verifyOTPonMobile
+    sendOTP , verifyOTP , sendEmail , sendOTPonmobile , verifyOTPonMobile, coursePurchased,Feedback
 }

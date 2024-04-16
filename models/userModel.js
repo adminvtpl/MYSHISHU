@@ -27,6 +27,11 @@ const userSchema =new Schema({
         type : String,
         required : true
     },
+city :{
+        type : String,
+    },
+
+
 });
 const userModel = db.model('user',userSchema);
 module.exports =userModel;

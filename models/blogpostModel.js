@@ -11,11 +11,11 @@ const BlogPost =new Schema({
    },
    like : {
     type : Number,
-    default : 0,
+    
    },
    share : {
     type : Number,
-    default : 0,
+  
    },
    comment :{
     type : Number,

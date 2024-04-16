@@ -2,6 +2,7 @@ const express = require('express')
 const User=require('../models/userModel')
 const jwt =require('jsonwebtoken')
 const router =express.Router();
+const CsvParser  = require('json2csv').Parser;
 const config =require('../config')
 const otpGenerator = require('otp-generator');
 const crypto = require('crypto');
@@ -12,7 +13,8 @@ router.post('/register',async(req , res)=>{
         email : req.body.email,
         password : req.body.password,
         phone : req.body.phone,
-        interest :req.body.interest
+        interest :req.body.interest,
+  city :req.body.city,
     })
     user.save().then(()=>{
         console.log('user Registered');
@@ -22,7 +24,15 @@ router.post('/register',async(req , res)=>{
     });
    
 });
-
+router.post('/deleteUser',async(req , res)=>{
+    const user = await User.findOneAndDelete({   
+        phone : req.body.phone,  
+    })
+    
+    res.status(200).json({success : true , data : user});
+   
+   
+});
 router.post('/login',async(req,res)=>{
     try {
         const data = await User.findOne(
@@ -174,7 +184,26 @@ router.patch('/update/:phone', async (req, res) => {
     }
 });
 
+router.get('/exportUser',async(req , res)=>{
+    try {
+        let users = [];
+       var userData = await User.find({});
+       userData.forEach((user)=>{
+        const {id , name , email , phone , interest,city} = user;
+        users.push({id , name , email , phone , interest,city});
+       });
+       const csvField =['Id','Name','Email','Phone' , 'Interest','city'];
+       const csvParser = new CsvParser({csvField});
+       const csvData = csvParser.parse(users);
+       res.setHeader("Content-Type","text/csv");
+       res.setHeader("Content-Disposition","attatchment : filename=usersData.csv");
+       res.status(200).end(csvData);
 
+
+    } catch (error) {
+        res.send({status : 400 , success : false , msg: error.message});
+    }
+})
 
 
 module.exports=router

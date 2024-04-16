@@ -6,7 +6,7 @@ async function sendEmail(params , callback){
       //  service: 'gmail',
         auth: {
             user: 'admin@myshishu.in',
-            pass: 'App231!@#',
+            pass: 'sumit321!@#',
           
         }
     });

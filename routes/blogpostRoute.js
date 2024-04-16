@@ -6,7 +6,30 @@ const multer = require('multer')
 const path = require('path');
 const {profile} = require('console');
 
-
+function getRandomNumber() {
+    // Generate a random number between 0 and 1
+    const randomNumber = Math.random();
+  
+    // Scale and shift the random number to the desired range [3000, 5000]
+    const min = 1000;
+    const max = 2000;
+    const scaledRandomNumber = min + randomNumber * (max - min + 1);
+  
+    // Use Math.floor to get an integer value
+    return Math.floor(scaledRandomNumber);
+  }
+function getRandomShares() {
+    // Generate a random number between 0 and 1
+    const randomNumber = Math.random();
+  
+    // Scale and shift the random number to the desired range [3000, 5000]
+    const min = 50;
+    const max = 200;
+    const scaledRandomNumber = min + randomNumber * (max - min + 1);
+  
+    // Use Math.floor to get an integer value
+    return Math.floor(scaledRandomNumber);
+  }
 
 const storage = multer.diskStorage({
     destination :(req , file , cb)=>{
@@ -58,6 +81,10 @@ router.route("/Add").post((req, res) => {
         phone: req.body.phone,
         title: req.body.title,
         body: req.body.body,
+  like : getRandomNumber(),
+  share : getRandomShares()
+
+
     });
 
     blogpost.save().then((result) => {
@@ -140,7 +167,21 @@ router.route("/getAllBlogs/:phone").get((req, res) => {
         });
 });
 
+router.route("/getBlog/:blogId").get((req, res) => {
+  const blogId = req.params.blogId;
 
+  BlogPost.findById(blogId)
+      .exec()
+      .then(blog => {
+          if (!blog) {
+              return res.status(404).json({ message: "Blog not found" });
+          }
+          return res.json({ data: blog });
+      })
+      .catch(err => {
+          return res.status(500).json({ error: err.message });
+      });
+});
 
 router.route("/delete/:id/:phone").delete((req, res) => {
     BlogPost.findOneAndDelete({

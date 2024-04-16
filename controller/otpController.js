@@ -74,3 +74,32 @@ exports.sendEmail= (req , res , next)=>{
         });
     })
 }
+exports.courses= (req , res , next)=>{
+    otpService.coursePurchased(req.body , (error , results)=>{
+        if(error){
+            return res.status(400).send({
+                message : "error",
+                data : error,
+            });
+        }
+        return res.status(200).send({
+            message : "Success",
+            data : results,
+        });
+    })
+}
+
+exports.userFeedback= (req , res , next)=>{
+    otpService.Feedback(req.body , (error , results)=>{
+        if(error){
+            return res.status(400).send({
+                message : "error",
+                data : error,
+            });
+        }
+        return res.status(200).send({
+            message : "Success",
+            data : results,
+        });
+    })
+}
