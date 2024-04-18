@@ -167,6 +167,21 @@ router.route("/getAllBlogs/:phone").get((req, res) => {
         });
 });
 
+
+router.route("/getAllPregnancyBlogs").get((req, res) => {
+  BlogPost.find({ $or: [{ title: "Pregnancy 2nd Trimester: A Comprehensive Guide" }, { title: "Nausea in the First Trimester of Pregnancy: Ease Nausea with Natural Remedy" }, { title: "Common Pregnancy Complications" }, { title: "Ectopic Pregnancy Symptoms at 5 Weeks" }, { title: "Preeclampsia Symptom: Warning Sign and Prevention" }, { title: "Morning Sickness" }, { title: "Foods to Avoid During Early Pregnancy: A Reliable Guide" }, { title: "Stillbirth Pregnancy – Whispers Of Hope" }, { title: "3rd Trimester Pregnancy: A Comprehensive Guide" }, { title: "Pregnancy 1st trimester: A Comprehensive Guide" }] })
+    .sort({ _id: -1 }) // Replace 'createdAt' with the actual field you want to use for sorting
+    .exec()
+    .then(result => {
+      return res.json({ data: result });
+    })
+    .catch(err => {
+      return res.json({ err });
+    });
+});
+
+
+
 router.route("/getBlog/:blogId").get((req, res) => {
   const blogId = req.params.blogId;
 

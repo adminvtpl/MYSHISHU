@@ -103,6 +103,7 @@ app.use("/appVersion",require('./routes/appVersionRoutes'));
 app.use("/ChildMemories",require('./routes/memoriesRoutes'));
 app.use("/courseLikes",require('./routes/courseLikeRoutes'));
 app.use("/saveImage",require('./routes/imageSaveRoutes'));
+app.use("/childAge",require('./routes/childAgeRoutes'));
 app.listen(port,()=>{
     console.log(`server running on port ${port}`);
  })
