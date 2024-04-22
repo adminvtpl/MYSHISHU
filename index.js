@@ -6,10 +6,7 @@ const phpass = require('phpass');
 
 const hasher = new phpass.PasswordHash();
 let connection = mysql.createConnection({
-    host: '13.126.173.67',
-    database: 'myshishuadmin_myshishu',
-    user: 'myshishuadmin_myshishu',
-    password: 'sumit@123',
+  
     
    
    
